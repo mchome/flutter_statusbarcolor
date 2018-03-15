@@ -43,6 +43,4 @@ Details in [example/](https://github.com/mchome/flutter_statusbarcolor/tree/mast
 
 ## Note that
 
-- I dont have macos, so i cant test the ios part. If you can use it in ios or patch it, please let me know or send me a pr.
-
 - Android build api which below 21(Lollipop) does not work.

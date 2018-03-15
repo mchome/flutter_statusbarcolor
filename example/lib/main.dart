@@ -36,21 +36,23 @@ class _MyAppState extends State<MyApp> {
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Plugin example app'),
+          title: new Text('Flutter statusbar color plugin example'),
         ),
         body: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            new Padding(padding: const EdgeInsets.all(5.0)),
             new Center(
-              widthFactor: 1.5,
               child: new Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Text('Set status bar color',
-                    style: new TextStyle(fontSize: 20.0),),
-                  new Divider(),
+                  new Text(
+                    'Set status bar color',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                  new Padding(padding: const EdgeInsets.all(10.0)),
                   new FlatButton(
                     onPressed: () {
                       Color color = Colors.transparent;
@@ -81,8 +83,11 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       Random rnd = new Random();
                       Color color = new Color.fromARGB(
-                          rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256),
-                          rnd.nextInt(256));
+                        rnd.nextInt(256),
+                        rnd.nextInt(256),
+                        rnd.nextInt(256),
+                        rnd.nextInt(256),
+                      );
                       changeStatusColor(color);
                       setState(() => randomStatusColor = color);
                     },
@@ -94,14 +99,15 @@ class _MyAppState extends State<MyApp> {
             ),
             new Expanded(
               child: new Center(
-                widthFactor: 1.5,
                 child: new Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Text('Set navigation bar color',
-                      style: new TextStyle(fontSize: 20.0),),
-                    new Divider(),
+                    new Text(
+                      'Set navigation bar color',
+                      style: new TextStyle(fontSize: 20.0),
+                    ),
+                    new Padding(padding: const EdgeInsets.all(10.0)),
                     new FlatButton(
                       onPressed: () {
                         Color color = Colors.green[400];
@@ -133,8 +139,11 @@ class _MyAppState extends State<MyApp> {
                       onPressed: () {
                         Random rnd = new Random();
                         Color color = new Color.fromARGB(
-                            rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256),
-                            rnd.nextInt(256));
+                          rnd.nextInt(256),
+                          rnd.nextInt(256),
+                          rnd.nextInt(256),
+                          rnd.nextInt(256),
+                        );
                         setState(() => randomNavigationColor = color);
                         changeNavigationColor(color);
                       },
