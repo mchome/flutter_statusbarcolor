@@ -15,7 +15,8 @@
   if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
     UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-    statusBar.backgroundColor = ANDROID_COLOR(@([color intValue]));
+    int colors = @([color intValue]);
+    statusBar.backgroundColor = ANDROID_COLOR(colors);
     result(nil);
   } else if ([@"setnavigationbarcolor" isEqualToString:call.method]) {
     result(nil);

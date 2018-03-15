@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.3]
+
+* Try to fix ios build again.
+
 ## [0.0.2]
 
 * Try to fix ios build.
