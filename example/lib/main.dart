@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -33,56 +33,55 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter statusbar color plugin example'),
-        ),
-        body: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Padding(padding: const EdgeInsets.all(5.0)),
-            new Center(
-              child: new Column(
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Flutter statusbar color plugin example'),
+            bottom: TabBar(
+              tabs: <Widget>[
+                Tab(text: 'Statusbar'),
+                Tab(text: 'Navigationbar(android only)')
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Text(
-                    'Set status bar color',
-                    style: new TextStyle(fontSize: 20.0),
-                  ),
-                  new Padding(padding: const EdgeInsets.all(10.0)),
-                  new FlatButton(
+                  FlatButton(
                     onPressed: () {
                       Color color = Colors.transparent;
                       changeStatusColor(color);
                     },
-                    child: new Text('Transparent'),
+                    child: Text('Transparent'),
                   ),
-                  new Padding(padding: const EdgeInsets.all(10.0)),
-                  new FlatButton(
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
                     onPressed: () {
                       Color color = Colors.amberAccent;
                       changeStatusColor(color);
                     },
-                    child: new Text('amber-accent'),
+                    child: Text('amber-accent'),
                     color: Colors.amberAccent,
                   ),
-                  new Padding(padding: const EdgeInsets.all(10.0)),
-                  new FlatButton(
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
                     onPressed: () {
                       Color color = Colors.tealAccent;
                       changeStatusColor(color);
                     },
-                    child: new Text('teal-accent'),
+                    child: Text('teal-accent'),
                     color: Colors.tealAccent,
                   ),
-                  new Padding(padding: const EdgeInsets.all(10.0)),
-                  new FlatButton(
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
                     onPressed: () {
-                      Random rnd = new Random();
-                      Color color = new Color.fromARGB(
+                      Random rnd = Random();
+                      Color color = Color.fromARGB(
                         rnd.nextInt(256),
                         rnd.nextInt(256),
                         rnd.nextInt(256),
@@ -91,54 +90,46 @@ class _MyAppState extends State<MyApp> {
                       changeStatusColor(color);
                       setState(() => randomStatusColor = color);
                     },
-                    child: new Text('Random color'),
+                    child: Text('Random color'),
                     color: randomStatusColor,
                   ),
                 ],
               ),
-            ),
-            new Expanded(
-              child: new Center(
-                child: new Column(
+              Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Text(
-                      'Set navigation bar color',
-                      style: new TextStyle(fontSize: 20.0),
-                    ),
-                    new Padding(padding: const EdgeInsets.all(10.0)),
-                    new FlatButton(
+                    FlatButton(
                       onPressed: () {
                         Color color = Colors.green[400];
                         changeNavigationColor(color);
                       },
-                      child: new Text('Green-400'),
+                      child: Text('Green-400'),
                       color: Colors.green[400],
                     ),
-                    new Padding(padding: const EdgeInsets.all(10.0)),
-                    new FlatButton(
+                    Padding(padding: const EdgeInsets.all(10.0)),
+                    FlatButton(
                       onPressed: () {
                         Color color = Colors.lightBlue[100];
                         changeNavigationColor(color);
                       },
-                      child: new Text('LightBlue-100'),
+                      child: Text('LightBlue-100'),
                       color: Colors.lightBlue[100],
                     ),
-                    new Padding(padding: const EdgeInsets.all(10.0)),
-                    new FlatButton(
+                    Padding(padding: const EdgeInsets.all(10.0)),
+                    FlatButton(
                       onPressed: () {
                         Color color = Colors.cyanAccent[200];
                         changeNavigationColor(color);
                       },
-                      child: new Text('CyanAccent-200'),
+                      child: Text('CyanAccent-200'),
                       color: Colors.cyanAccent[200],
                     ),
-                    new Padding(padding: const EdgeInsets.all(10.0)),
-                    new FlatButton(
+                    Padding(padding: const EdgeInsets.all(10.0)),
+                    FlatButton(
                       onPressed: () {
-                        Random rnd = new Random();
-                        Color color = new Color.fromARGB(
+                        Random rnd = Random();
+                        Color color = Color.fromARGB(
                           rnd.nextInt(256),
                           rnd.nextInt(256),
                           rnd.nextInt(256),
@@ -147,14 +138,13 @@ class _MyAppState extends State<MyApp> {
                         setState(() => randomNavigationColor = color);
                         changeNavigationColor(color);
                       },
-                      child: new Text('Random color'),
+                      child: Text('Random color'),
                       color: randomNavigationColor,
                     ),
                   ],
                 ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
