@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.4]
+
+* Upgrade to dart2.
+
 ## [0.0.3]
 
 * Try to fix ios build again.
