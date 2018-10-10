@@ -20,6 +20,16 @@
     result(nil);
   } else if ([@"setnavigationbarcolor" isEqualToString:call.method]) {
     result(nil);
+  } else if ([@"setstatusbarwhiteforeground" isEqualToString:call.method]) {
+    NSNumber numberWithBool:*usewhiteforeground = call.arguments[@"whiteForeground"];
+    if (usewhiteforeground) {
+      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    } else {
+      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    }
+    result(nil);
+  } else if ([@"setnavigationbarwhiteforeground" isEqualToString:call.method]) {
+    result(nil);
   } else {
     result(FlutterMethodNotImplemented);
   }

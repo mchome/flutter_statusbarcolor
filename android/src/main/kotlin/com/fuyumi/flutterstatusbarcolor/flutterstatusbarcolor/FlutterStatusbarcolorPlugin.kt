@@ -1,7 +1,8 @@
 package com.fuyumi.flutterstatusbarcolor.flutterstatusbarcolor
 
-import android.os.Build;
+import android.os.Build
 import android.app.Activity
+import android.view.View
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
@@ -20,16 +21,38 @@ class FlutterStatusbarcolorPlugin private constructor(private val activity: Acti
     override fun onMethodCall(call: MethodCall, result: Result): Unit {
         when (call.method) {
             "setstatusbarcolor" -> {
-                val statusbarcolor: Int = call.argument("color")
+                val statusBarColor: Int = call.argument("color")!!
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    activity.window.statusBarColor = statusbarcolor
+                    activity.window.statusBarColor = statusBarColor
                 }
                 result.success(null)
             }
             "setnavigationbarcolor" -> {
-                val navigationbarcolor: Int = call.argument("color")
+                val navigationBarColor: Int = call.argument("color")!!
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    activity.window.navigationBarColor = navigationbarcolor
+                    activity.window.navigationBarColor = navigationBarColor
+                }
+                result.success(null)
+            }
+            "setstatusbarwhiteforeground" -> {
+                val usewhiteforeground: Boolean = call.argument("whiteForeground")!!
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (usewhiteforeground) {
+                        activity.window.decorView.systemUiVisibility = activity.window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                    } else {
+                        activity.window.decorView.systemUiVisibility = activity.window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    }
+                }
+                result.success(null)
+            }
+            "setnavigationbarwhiteforeground" -> {
+                val usewhiteforeground: Boolean = call.argument("whiteForeground")!!
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if (usewhiteforeground) {
+                        activity.window.decorView.systemUiVisibility = activity.window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+                    } else {
+                        activity.window.decorView.systemUiVisibility = activity.window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                    }
                 }
                 result.success(null)
             }

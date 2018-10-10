@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.0]
+
+* Add `setStatusBarWhiteForeground` to set statusbar content color.
+* Add `setNavigationBarWhiteForeground` to set navigationbar content color.
+* Add `useWhiteForeground` to know the background is fit with white content.
+
 ## [0.0.4]
 
 * Upgrade to dart2.

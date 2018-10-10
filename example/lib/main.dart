@@ -12,14 +12,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Color randomStatusColor = Colors.transparent;
-  Color randomNavigationColor = Colors.transparent;
+  Color randomStatusColor = Colors.black;
+  Color randomNavigationColor = Colors.black;
 
   changeStatusColor(Color color) async {
     try {
       await FlutterStatusbarcolor.setStatusBarColor(color);
+      if (useWhiteForeground(color)) {
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+        FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+      } else {
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+        FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+      }
     } on PlatformException catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -27,7 +34,7 @@ class _MyAppState extends State<MyApp> {
     try {
       await FlutterStatusbarcolor.setNavigationBarColor(color);
     } on PlatformException catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -53,10 +60,7 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {
-                      Color color = Colors.transparent;
-                      changeStatusColor(color);
-                    },
+                    onPressed: () => changeStatusColor(Colors.transparent),
                     child: Text('Transparent'),
                   ),
                   Padding(padding: const EdgeInsets.all(10.0)),
@@ -70,79 +74,120 @@ class _MyAppState extends State<MyApp> {
                   ),
                   Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
-                    onPressed: () {
-                      Color color = Colors.tealAccent;
-                      changeStatusColor(color);
-                    },
+                    onPressed: () => changeStatusColor(Colors.tealAccent),
                     child: Text('teal-accent'),
                     color: Colors.tealAccent,
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () =>
+                        FlutterStatusbarcolor.setStatusBarWhiteForeground(true),
+                    child: Text(
+                      'light foreground',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: Colors.black,
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () =>
+                        FlutterStatusbarcolor.setStatusBarWhiteForeground(
+                            false),
+                    child: Text('dark foreground'),
+                    color: Colors.white,
                   ),
                   Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
                     onPressed: () {
                       Random rnd = Random();
                       Color color = Color.fromARGB(
-                        rnd.nextInt(256),
-                        rnd.nextInt(256),
-                        rnd.nextInt(256),
-                        rnd.nextInt(256),
+                        255,
+                        rnd.nextInt(255),
+                        rnd.nextInt(255),
+                        rnd.nextInt(255),
                       );
                       changeStatusColor(color);
                       setState(() => randomStatusColor = color);
                     },
-                    child: Text('Random color'),
+                    child: Text(
+                      'Random color',
+                      style: TextStyle(
+                        color: useWhiteForeground(randomStatusColor)
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                     color: randomStatusColor,
                   ),
                 ],
               ),
               Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Color color = Colors.green[400];
-                        changeNavigationColor(color);
-                      },
-                      child: Text('Green-400'),
-                      color: Colors.green[400],
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: () => changeNavigationColor(Colors.green[400]),
+                    child: Text('Green-400'),
+                    color: Colors.green[400],
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () =>
+                        changeNavigationColor(Colors.lightBlue[100]),
+                    child: Text('LightBlue-100'),
+                    color: Colors.lightBlue[100],
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () =>
+                        changeNavigationColor(Colors.cyanAccent[200]),
+                    child: Text('CyanAccent-200'),
+                    color: Colors.cyanAccent[200],
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () =>
+                        FlutterStatusbarcolor.setNavigationBarWhiteForeground(
+                            true),
+                    child: Text(
+                      'light foreground',
+                      style: TextStyle(color: Colors.white),
                     ),
-                    Padding(padding: const EdgeInsets.all(10.0)),
-                    FlatButton(
-                      onPressed: () {
-                        Color color = Colors.lightBlue[100];
-                        changeNavigationColor(color);
-                      },
-                      child: Text('LightBlue-100'),
-                      color: Colors.lightBlue[100],
+                    color: Colors.black,
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () =>
+                        FlutterStatusbarcolor.setNavigationBarWhiteForeground(
+                            false),
+                    child: Text('dark foreground'),
+                    color: Colors.white,
+                  ),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  FlatButton(
+                    onPressed: () {
+                      Random rnd = Random();
+                      Color color = Color.fromARGB(
+                        255,
+                        rnd.nextInt(255),
+                        rnd.nextInt(255),
+                        rnd.nextInt(255),
+                      );
+                      setState(() => randomNavigationColor = color);
+                      changeNavigationColor(color);
+                    },
+                    child: Text(
+                      'Random color',
+                      style: TextStyle(
+                        color: useWhiteForeground(randomNavigationColor)
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                     ),
-                    Padding(padding: const EdgeInsets.all(10.0)),
-                    FlatButton(
-                      onPressed: () {
-                        Color color = Colors.cyanAccent[200];
-                        changeNavigationColor(color);
-                      },
-                      child: Text('CyanAccent-200'),
-                      color: Colors.cyanAccent[200],
-                    ),
-                    Padding(padding: const EdgeInsets.all(10.0)),
-                    FlatButton(
-                      onPressed: () {
-                        Random rnd = Random();
-                        Color color = Color.fromARGB(
-                          rnd.nextInt(256),
-                          rnd.nextInt(256),
-                          rnd.nextInt(256),
-                          rnd.nextInt(256),
-                        );
-                        setState(() => randomNavigationColor = color);
-                        changeNavigationColor(color);
-                      },
-                      child: Text('Random color'),
-                      color: randomNavigationColor,
-                    ),
-                  ],
-                ),
+                    color: randomNavigationColor,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
