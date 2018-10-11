@@ -29,10 +29,8 @@ try {
   await FlutterStatusbarcolor.setStatusBarColor(Colors.green[400]);
   if (useWhiteForeground(Colors.green[400])) {
     FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
-    FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
   } else {
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-    FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
   }
 } on PlatformException catch (e) {
   print(e);
@@ -42,10 +40,8 @@ try {
 try {
   await FlutterStatusbarcolor.setNavigationBarColor(Colors.orange[200]);
   if (useWhiteForeground(Colors.orange[200]) {
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
     FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
   } else {
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
   }
 } on PlatformException catch (e) {
