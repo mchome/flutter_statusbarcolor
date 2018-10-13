@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.1]
+
+* Fix ios build.
+
 ## [0.1.0]
 
 * Add `setStatusBarWhiteForeground` to set statusbar content color.

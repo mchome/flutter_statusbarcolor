@@ -12,9 +12,11 @@ class FlutterStatusbarcolor {
   static Future setNavigationBarColor(Color color) =>
       _channel.invokeMethod('setnavigationbarcolor', {'color': color.value});
   static Future setStatusBarWhiteForeground(bool useWhiteForeground) =>
-      _channel.invokeMethod('setstatusbarwhiteforeground', {'whiteForeground': useWhiteForeground});
+      _channel.invokeMethod('setstatusbarwhiteforeground',
+          {'whiteForeground': useWhiteForeground});
   static Future setNavigationBarWhiteForeground(bool useWhiteForeground) =>
-      _channel.invokeMethod('setnavigationbarwhiteforeground', {'whiteForeground': useWhiteForeground});
+      _channel.invokeMethod('setnavigationbarwhiteforeground',
+          {'whiteForeground': useWhiteForeground});
 }
 
 bool useWhiteForeground(Color color) {
