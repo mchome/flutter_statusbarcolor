@@ -15,14 +15,14 @@
   if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
     UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-    int colors = @([color intValue]);
+    int colors = [color intValue];
     statusBar.backgroundColor = ANDROID_COLOR(colors);
     result(nil);
   } else if ([@"setnavigationbarcolor" isEqualToString:call.method]) {
     result(nil);
   } else if ([@"setstatusbarwhiteforeground" isEqualToString:call.method]) {
-    NSNumber numberWithBool:*usewhiteforeground = call.arguments[@"whiteForeground"];
-    if (usewhiteforeground) {
+    NSNumber *usewhiteforeground = call.arguments[@"whiteForeground"];
+    if ([usewhiteforeground boolValue]) {
       [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     } else {
       [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
