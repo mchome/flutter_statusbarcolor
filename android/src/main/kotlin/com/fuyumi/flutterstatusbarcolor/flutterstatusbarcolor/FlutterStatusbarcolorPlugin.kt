@@ -20,17 +20,17 @@ class FlutterStatusbarcolorPlugin private constructor(private val activity: Acti
 
     override fun onMethodCall(call: MethodCall, result: Result): Unit {
         when (call.method) {
+            "getstatusbarcolor" -> {
+                var statusBarColor: Int = 0
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    statusBarColor = activity.window.statusBarColor
+                }
+                result.success(statusBarColor)
+            }
             "setstatusbarcolor" -> {
                 val statusBarColor: Int = call.argument("color")!!
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     activity.window.statusBarColor = statusBarColor
-                }
-                result.success(null)
-            }
-            "setnavigationbarcolor" -> {
-                val navigationBarColor: Int = call.argument("color")!!
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    activity.window.navigationBarColor = navigationBarColor
                 }
                 result.success(null)
             }
@@ -42,6 +42,20 @@ class FlutterStatusbarcolorPlugin private constructor(private val activity: Acti
                     } else {
                         activity.window.decorView.systemUiVisibility = activity.window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     }
+                }
+                result.success(null)
+            }
+            "getnavigationbarcolor" -> {
+                var navigationBarColor: Int = 0
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    navigationBarColor = activity.window.navigationBarColor
+                }
+                result.success(navigationBarColor)
+            }
+            "setnavigationbarcolor" -> {
+                val navigationBarColor: Int = call.argument("color")!!
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    activity.window.navigationBarColor = navigationBarColor
                 }
                 result.success(null)
             }

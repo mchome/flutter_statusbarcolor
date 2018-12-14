@@ -12,13 +12,26 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"setstatusbarcolor" isEqualToString:call.method]) {
+  if ([@"getstatusbarcolor" isEqualToString:call.method]) {
+    UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+    UIColor *uicolor = statusBar.backgroundColor;
+    CGFloat red = 0;
+    CGFloat green = 0;
+    CGFloat blue = 0;
+    CGFloat alpha = 0;
+    if (![uicolor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        CGFloat white;
+        if ([uicolor getWhite:&white alpha:&alpha]) {
+            red = green = blue = white;
+        }
+    }
+    NSNumber *color = @((red * 255) << 16) | ((green * 255) << 8) | (blue * 255) | ((alpha * 255) << 24);
+    result(color);
+  } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
     UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
     int colors = [color intValue];
     statusBar.backgroundColor = ANDROID_COLOR(colors);
-    result(nil);
-  } else if ([@"setnavigationbarcolor" isEqualToString:call.method]) {
     result(nil);
   } else if ([@"setstatusbarwhiteforeground" isEqualToString:call.method]) {
     NSNumber *usewhiteforeground = call.arguments[@"whiteForeground"];
@@ -27,6 +40,10 @@
     } else {
       [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     }
+    result(nil);
+  } else if ([@"getnavigationbarcolor" isEqualToString:call.method]) {
+    result(nil);
+  } else if ([@"setnavigationbarcolor" isEqualToString:call.method]) {
     result(nil);
   } else if ([@"setnavigationbarwhiteforeground" isEqualToString:call.method]) {
     result(nil);

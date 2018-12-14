@@ -59,6 +59,24 @@ class _MyAppState extends State<MyApp> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Builder(builder: (BuildContext context) {
+                    return FlatButton(
+                      onPressed: () => FlutterStatusbarcolor.getStatusBarColor()
+                              .then((Color color) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(color.toString()),
+                              backgroundColor: color,
+                              duration: const Duration(milliseconds: 200),
+                            ));
+                          }),
+                      child: Text(
+                        'Show Statusbar Color',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.black,
+                    );
+                  }),
+                  Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
                     onPressed: () => changeStatusColor(Colors.transparent),
                     child: Text('Transparent'),
@@ -125,6 +143,24 @@ class _MyAppState extends State<MyApp> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Builder(builder: (BuildContext context) {
+                    return FlatButton(
+                      onPressed: () => FlutterStatusbarcolor.getNavigationBarColor()
+                              .then((Color color) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(color.toString()),
+                              backgroundColor: color,
+                              duration: const Duration(milliseconds: 200),
+                            ));
+                          }),
+                      child: Text(
+                        'Show Navigationbar Color',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.black,
+                    );
+                  }),
+                  Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
                     onPressed: () => changeNavigationColor(Colors.green[400]),
                     child: Text('Green-400'),
