@@ -25,7 +25,7 @@
             red = green = blue = white;
         }
     }
-    NSNumber *color = @((red * 255) << 16) | ((green * 255) << 8) | (blue * 255) | ((alpha * 255) << 24);
+    NSNumber *color = @(((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | (int)(blue * 255.0) | ((int)(alpha * 255.0) << 24));
     result(color);
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
