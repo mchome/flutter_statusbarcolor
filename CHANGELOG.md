@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.3]
+
+* Fix ios build.
+
 ## [0.1.2]
 
 * Add `getStatusBarColor` and `getNavigationBarColor`.
