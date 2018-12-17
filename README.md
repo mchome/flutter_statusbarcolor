@@ -66,4 +66,6 @@ Details in [example/](https://github.com/mchome/flutter_statusbarcolor/tree/mast
 
 ## Note that
 
+- If you find the foreground color reverted after changing the app lifecycle,
+  please use fluter's [WidgetsBindingObserver](https://docs.flutter.io/flutter/widgets/WidgetsBindingObserver-class.html) mixin.
 - If ios build does not work, please send issues or pull requests.

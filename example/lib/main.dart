@@ -4,16 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-void main() => runApp(MyApp());
+main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  Color randomStatusColor = Colors.black;
-  Color randomNavigationColor = Colors.black;
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  Color _randomStatusColor = Colors.black;
+  Color _randomNavigationColor = Colors.black;
+
+  bool _useWhiteStatusBarForeground;
+  bool _useWhiteNavigationBarForeground;
+
+  @override
+  initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      if (_useWhiteStatusBarForeground != null)
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(
+            _useWhiteStatusBarForeground);
+      if (_useWhiteNavigationBarForeground != null)
+        FlutterStatusbarcolor.setNavigationBarWhiteForeground(
+            _useWhiteNavigationBarForeground);
+    }
+    super.didChangeAppLifecycleState(state);
+  }
 
   changeStatusColor(Color color) async {
     try {
@@ -21,9 +49,13 @@ class _MyAppState extends State<MyApp> {
       if (useWhiteForeground(color)) {
         FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
         FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+        _useWhiteStatusBarForeground = true;
+        _useWhiteNavigationBarForeground = true;
       } else {
         FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
         FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+        _useWhiteStatusBarForeground = false;
+        _useWhiteNavigationBarForeground = false;
       }
     } on PlatformException catch (e) {
       debugPrint(e.toString());
@@ -99,7 +131,8 @@ class _MyAppState extends State<MyApp> {
                   Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
                     onPressed: () =>
-                        FlutterStatusbarcolor.setStatusBarWhiteForeground(true),
+                        FlutterStatusbarcolor.setStatusBarWhiteForeground(true)
+                            .then((_) => _useWhiteStatusBarForeground = true),
                     child: Text(
                       'light foreground',
                       style: TextStyle(color: Colors.white),
@@ -109,8 +142,8 @@ class _MyAppState extends State<MyApp> {
                   Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
                     onPressed: () =>
-                        FlutterStatusbarcolor.setStatusBarWhiteForeground(
-                            false),
+                        FlutterStatusbarcolor.setStatusBarWhiteForeground(false)
+                            .then((_) => _useWhiteStatusBarForeground = false),
                     child: Text('dark foreground'),
                     color: Colors.white,
                   ),
@@ -125,17 +158,17 @@ class _MyAppState extends State<MyApp> {
                         rnd.nextInt(255),
                       );
                       changeStatusColor(color);
-                      setState(() => randomStatusColor = color);
+                      setState(() => _randomStatusColor = color);
                     },
                     child: Text(
                       'Random color',
                       style: TextStyle(
-                        color: useWhiteForeground(randomStatusColor)
+                        color: useWhiteForeground(_randomStatusColor)
                             ? Colors.white
                             : Colors.black,
                       ),
                     ),
-                    color: randomStatusColor,
+                    color: _randomStatusColor,
                   ),
                 ],
               ),
@@ -145,7 +178,8 @@ class _MyAppState extends State<MyApp> {
                 children: <Widget>[
                   Builder(builder: (BuildContext context) {
                     return FlatButton(
-                      onPressed: () => FlutterStatusbarcolor.getNavigationBarColor()
+                      onPressed: () =>
+                          FlutterStatusbarcolor.getNavigationBarColor()
                               .then((Color color) {
                             Scaffold.of(context).showSnackBar(SnackBar(
                               content: Text(color.toString()),
@@ -182,9 +216,9 @@ class _MyAppState extends State<MyApp> {
                   ),
                   Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
-                    onPressed: () =>
-                        FlutterStatusbarcolor.setNavigationBarWhiteForeground(
-                            true),
+                    onPressed: () => FlutterStatusbarcolor
+                            .setNavigationBarWhiteForeground(true)
+                        .then((_) => _useWhiteNavigationBarForeground = true),
                     child: Text(
                       'light foreground',
                       style: TextStyle(color: Colors.white),
@@ -193,9 +227,9 @@ class _MyAppState extends State<MyApp> {
                   ),
                   Padding(padding: const EdgeInsets.all(10.0)),
                   FlatButton(
-                    onPressed: () =>
-                        FlutterStatusbarcolor.setNavigationBarWhiteForeground(
-                            false),
+                    onPressed: () => FlutterStatusbarcolor
+                            .setNavigationBarWhiteForeground(false)
+                        .then((_) => _useWhiteNavigationBarForeground = false),
                     child: Text('dark foreground'),
                     color: Colors.white,
                   ),
@@ -209,18 +243,18 @@ class _MyAppState extends State<MyApp> {
                         rnd.nextInt(255),
                         rnd.nextInt(255),
                       );
-                      setState(() => randomNavigationColor = color);
+                      setState(() => _randomNavigationColor = color);
                       changeNavigationColor(color);
                     },
                     child: Text(
                       'Random color',
                       style: TextStyle(
-                        color: useWhiteForeground(randomNavigationColor)
+                        color: useWhiteForeground(_randomNavigationColor)
                             ? Colors.white
                             : Colors.black,
                       ),
                     ),
-                    color: randomNavigationColor,
+                    color: _randomNavigationColor,
                   ),
                 ],
               ),
