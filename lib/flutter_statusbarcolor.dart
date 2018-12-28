@@ -15,10 +15,10 @@ class FlutterStatusbarcolor {
         return value == null ? null : Color(value);
       });
   /// Set the statusbar background color.
-  static Future setStatusBarColor(Color color) =>
+  static Future<void> setStatusBarColor(Color color) =>
       _channel.invokeMethod('setstatusbarcolor', {'color': color.value});
   /// Set the statusbar white foreground color.
-  static Future setStatusBarWhiteForeground(bool useWhiteForeground) =>
+  static Future<void> setStatusBarWhiteForeground(bool useWhiteForeground) =>
       _channel.invokeMethod('setstatusbarwhiteforeground',
           {'whiteForeground': useWhiteForeground});
 
@@ -28,10 +28,10 @@ class FlutterStatusbarcolor {
         return value == null ? null : Color(value);
       });
   /// Set the navigationbar background color.
-  static Future setNavigationBarColor(Color color) =>
+  static Future<void> setNavigationBarColor(Color color) =>
       _channel.invokeMethod('setnavigationbarcolor', {'color': color.value});
   /// Set the navigationbar white foreground color.
-  static Future setNavigationBarWhiteForeground(bool useWhiteForeground) =>
+  static Future<void> setNavigationBarWhiteForeground(bool useWhiteForeground) =>
       _channel.invokeMethod('setnavigationbarwhiteforeground',
           {'whiteForeground': useWhiteForeground});
 }
