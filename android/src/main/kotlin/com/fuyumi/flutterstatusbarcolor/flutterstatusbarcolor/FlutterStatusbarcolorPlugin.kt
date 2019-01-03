@@ -34,7 +34,7 @@ class FlutterStatusbarcolorPlugin private constructor(private val activity: Acti
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     if (animate) {
                         val colorAnim = ValueAnimator.ofArgb(activity.window.statusBarColor, statusBarColor)
-                        colorAnim.addUpdateListener { anim -> activity.window.statusBarColor =  anim.animatedValue as Int }
+                        colorAnim.addUpdateListener { anim -> activity.window.statusBarColor = anim.animatedValue as Int }
                         colorAnim.setDuration(300)
                         colorAnim.start()
                     } else {
@@ -67,7 +67,7 @@ class FlutterStatusbarcolorPlugin private constructor(private val activity: Acti
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     if (animate) {
                         val colorAnim = ValueAnimator.ofArgb(activity.window.navigationBarColor, navigationBarColor)
-                        colorAnim.addUpdateListener { anim -> activity.window.navigationBarColor =  anim.animatedValue as Int }
+                        colorAnim.addUpdateListener { anim -> activity.window.navigationBarColor = anim.animatedValue as Int }
                         colorAnim.setDuration(300)
                         colorAnim.start()
                     } else {
