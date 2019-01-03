@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.4]
+
+* Allow to animate the color after setting the color of statusbar or navigationbar.
+
 ## [0.1.3]
 
 * Fix ios build.
