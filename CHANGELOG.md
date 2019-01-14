@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.4+1]
+
+* Update docs.
+
 ## [0.1.4]
 
 * Allow to animate the color after setting the color of statusbar or navigationbar.
