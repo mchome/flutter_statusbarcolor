@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.5]
+
+* Android dependencies version upgrade for AndroidX support.
+
 ## [0.1.4+1]
 
 * Update docs.
