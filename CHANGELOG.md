@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0]
+
+* **Breaking change**. Updated Gradle tooling, kotlin version and compileSdkVersion. Same as `0.1.5`.
+
+## [0.1.6]
+
+* Revert to `0.1.4`.
+
 ## [0.1.5]
 
 * Android dependencies version upgrade for AndroidX support.
