@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1]
+
+* Null check for android activity.
+
 ## [0.2.0]
 
 * **Breaking change**. Updated Gradle tooling, kotlin version and compileSdkVersion. Same as `0.1.5`.
