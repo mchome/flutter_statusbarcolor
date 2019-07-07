@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   changeStatusColor(Color color) async {
     try {
-      await FlutterStatusbarcolor.setStatusBarColor(color);
+      await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
       if (useWhiteForeground(color)) {
         FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
         FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   changeNavigationColor(Color color) async {
     try {
-      await FlutterStatusbarcolor.setNavigationBarColor(color);
+      await FlutterStatusbarcolor.setNavigationBarColor(color, animate: true);
     } on PlatformException catch (e) {
       debugPrint(e.toString());
     }
@@ -94,13 +94,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   Builder(builder: (BuildContext context) {
                     return FlatButton(
                       onPressed: () => FlutterStatusbarcolor.getStatusBarColor()
-                              .then((Color color) {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(color.toString()),
-                              backgroundColor: color,
-                              duration: const Duration(milliseconds: 200),
-                            ));
-                          }),
+                          .then((Color color) {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(color.toString()),
+                          backgroundColor: color,
+                          duration: const Duration(milliseconds: 200),
+                        ));
+                      }),
                       child: Text(
                         'Show Statusbar Color',
                         style: TextStyle(color: Colors.white),
@@ -181,12 +181,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       onPressed: () =>
                           FlutterStatusbarcolor.getNavigationBarColor()
                               .then((Color color) {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(color.toString()),
-                              backgroundColor: color,
-                              duration: const Duration(milliseconds: 200),
-                            ));
-                          }),
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(color.toString()),
+                          backgroundColor: color,
+                          duration: const Duration(milliseconds: 200),
+                        ));
+                      }),
                       child: Text(
                         'Show Navigationbar Color',
                         style: TextStyle(color: Colors.white),

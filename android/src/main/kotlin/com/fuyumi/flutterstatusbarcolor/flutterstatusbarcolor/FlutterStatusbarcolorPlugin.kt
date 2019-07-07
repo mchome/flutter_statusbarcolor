@@ -10,7 +10,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
-class FlutterStatusbarcolorPlugin private constructor(private val activity: Activity) : MethodCallHandler {
+class FlutterStatusbarcolorPlugin private constructor(private val activity: Activity?) : MethodCallHandler {
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar): Unit {
@@ -20,6 +20,8 @@ class FlutterStatusbarcolorPlugin private constructor(private val activity: Acti
     }
 
     override fun onMethodCall(call: MethodCall, result: Result): Unit {
+        if (activity == null) return result.success(null)
+
         when (call.method) {
             "getstatusbarcolor" -> {
                 var statusBarColor: Int = 0
