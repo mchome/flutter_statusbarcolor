@@ -13,25 +13,32 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getstatusbarcolor" isEqualToString:call.method]) {
-    UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-    UIColor *uicolor = statusBar.backgroundColor;
-    CGFloat red = 0;
-    CGFloat green = 0;
-    CGFloat blue = 0;
-    CGFloat alpha = 0;
-    if (![uicolor getRed:&red green:&green blue:&blue alpha:&alpha]) {
-        CGFloat white;
-        if ([uicolor getWhite:&white alpha:&alpha]) {
-            red = green = blue = white;
-        }
+    if (@available(iOS 13, *)) {
+      result(nil);
+    } else {
+      UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+      UIColor *uicolor = statusBar.backgroundColor;
+      CGFloat red = 0;
+      CGFloat green = 0;
+      CGFloat blue = 0;
+      CGFloat alpha = 0;
+      if (![uicolor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+          CGFloat white;
+          if ([uicolor getWhite:&white alpha:&alpha]) {
+              red = green = blue = white;
+          }
+      }
+      NSNumber *color = @(((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | (int)(blue * 255.0) | ((int)(alpha * 255.0) << 24));
+      result(color);
     }
-    NSNumber *color = @(((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | (int)(blue * 255.0) | ((int)(alpha * 255.0) << 24));
-    result(color);
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
-    NSNumber *color = call.arguments[@"color"];
-    UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-    int colors = [color intValue];
-    statusBar.backgroundColor = ANDROID_COLOR(colors);
+    if (@available(iOS 13, *)) {
+    } else {
+      NSNumber *color = call.arguments[@"color"];
+      UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+      int colors = [color intValue];
+      statusBar.backgroundColor = ANDROID_COLOR(colors);
+    }
     result(nil);
   } else if ([@"setstatusbarwhiteforeground" isEqualToString:call.method]) {
     NSNumber *usewhiteforeground = call.arguments[@"whiteForeground"];
