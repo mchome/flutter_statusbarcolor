@@ -13,28 +13,33 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getstatusbarcolor" isEqualToString:call.method]) {
+    UIColor *uicolor;
     if (@available(iOS 13, *)) {
-      result(nil);
+      UINavigationBarAppearance *appearance = self.standardAppearance;
+      uicolor = appearance.backgroundColor;
     } else {
       UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-      UIColor *uicolor = statusBar.backgroundColor;
-      CGFloat red = 0;
-      CGFloat green = 0;
-      CGFloat blue = 0;
-      CGFloat alpha = 0;
-      if (![uicolor getRed:&red green:&green blue:&blue alpha:&alpha]) {
-          CGFloat white;
-          if ([uicolor getWhite:&white alpha:&alpha]) {
-              red = green = blue = white;
-          }
-      }
-      NSNumber *color = @(((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | (int)(blue * 255.0) | ((int)(alpha * 255.0) << 24));
-      result(color);
+      uicolor = statusBar.backgroundColor;
     }
+    CGFloat red = 0;
+    CGFloat green = 0;
+    CGFloat blue = 0;
+    CGFloat alpha = 0;
+    if (![uicolor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        CGFloat white;
+        if ([uicolor getWhite:&white alpha:&alpha]) {
+            red = green = blue = white;
+        }
+    }
+    NSNumber *color = @(((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | (int)(blue * 255.0) | ((int)(alpha * 255.0) << 24));
+    result(color);
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
+    NSNumber *color = call.arguments[@"color"];
     if (@available(iOS 13, *)) {
+      UINavigationBarAppearance *appearance = self.standardAppearance;
+      appearance.backgroundColor = ANDROID_COLOR(colors);
+      self.standardAppearance = appearance;
     } else {
-      NSNumber *color = call.arguments[@"color"];
       UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
       int colors = [color intValue];
       statusBar.backgroundColor = ANDROID_COLOR(colors);
