@@ -37,6 +37,7 @@
     NSNumber *color = call.arguments[@"color"];
     if (@available(iOS 13, *)) {
       UINavigationBarAppearance *appearance = self.standardAppearance;
+      int colors = [color intValue];
       appearance.backgroundColor = ANDROID_COLOR(colors);
       self.standardAppearance = appearance;
     } else {
