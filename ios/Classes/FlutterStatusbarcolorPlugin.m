@@ -15,8 +15,7 @@
   if ([@"getstatusbarcolor" isEqualToString:call.method]) {
     UIColor *uicolor;
     if (@available(iOS 13, *)) {
-      UINavigationBarAppearance *appearance = self.standardAppearance;
-      uicolor = appearance.backgroundColor;
+      return result(nil);
     } else {
       UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
       uicolor = statusBar.backgroundColor;
@@ -36,10 +35,6 @@
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
     if (@available(iOS 13, *)) {
-      UINavigationBarAppearance *appearance = self.standardAppearance;
-      int colors = [color intValue];
-      appearance.backgroundColor = ANDROID_COLOR(colors);
-      self.standardAppearance = appearance;
     } else {
       UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
       int colors = [color intValue];
