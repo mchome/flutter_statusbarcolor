@@ -35,6 +35,10 @@
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
     if (@available(iOS 13, *)) {
+     UIView *statusBar = [[UIView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame];
+     int colors = [color intValue];
+     statusBar.backgroundColor = ANDROID_COLOR(colors);
+     [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
     } else {
       UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
       int colors = [color intValue];
