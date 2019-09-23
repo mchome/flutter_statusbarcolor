@@ -18,16 +18,12 @@ static NSInteger statusBarViewTag = 38482458385;
   if ([@"getstatusbarcolor" isEqualToString:call.method]) {
     UIColor *uicolor;
     UIView * statusBar = [self getStatusBarView];
-    if (@available(iOS 13, *)) {
-      uicolor = statusBar.backgroundColor;
-      // initial status bar background color is set to nil in ios13
-      if(uicolor == nil) {
-          // since it's transparent default to transparent
-          uicolor = UIColor.clearColor;
-      }
-    } else {
-       uicolor = statusBar.backgroundColor;
+    uicolor = statusBar.backgroundColor;
+    if(uicolor == nil) {
+       // since it's nil default to transparent
+       uicolor = UIColor.clearColor;
     }
+
     CGFloat red = 0;
     CGFloat green = 0;
     CGFloat blue = 0;
@@ -43,14 +39,8 @@ static NSInteger statusBarViewTag = 38482458385;
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
     UIView * statusBar = [self getStatusBarView];
-    if (@available(iOS 13, *)) {
-     int colors = [color intValue];
-     statusBar.backgroundColor = ANDROID_COLOR(colors);
-     [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
-    } else {
-      int colors = [color intValue];
-      statusBar.backgroundColor = ANDROID_COLOR(colors);
-    }
+    int colors = [color intValue];
+    statusBar.backgroundColor = ANDROID_COLOR(colors);
     result(nil);
   } else if ([@"setstatusbarwhiteforeground" isEqualToString:call.method]) {
     NSNumber *usewhiteforeground = call.arguments[@"whiteForeground"];
@@ -80,6 +70,7 @@ static NSInteger statusBarViewTag = 38482458385;
        else {
            UIView* statusBar = [[UIView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame];
            statusBar.tag = statusBarViewTag;
+           [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
            return statusBar;
        }
    }
