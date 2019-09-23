@@ -3,6 +3,7 @@
 #define ANDROID_COLOR(c) [UIColor colorWithRed:((c>>16)&0xFF)/255.0 green:((c>>8)&0xFF)/255.0 blue:((c)&0xFF)/255.0  alpha:((c>>24)&0xFF)/255.0]
 
 @implementation FlutterStatusbarcolorPlugin
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"plugins.fuyumi.com/statusbar"
@@ -11,14 +12,21 @@
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
+static NSInteger statusBarViewTag = 38482458385;
+
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getstatusbarcolor" isEqualToString:call.method]) {
     UIColor *uicolor;
+    UIView * statusBar = [self getStatusBarView];
     if (@available(iOS 13, *)) {
-      return result(nil);
-    } else {
-      UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
       uicolor = statusBar.backgroundColor;
+      // initial status bar background color is set to nil in ios13
+      if(uicolor == nil) {
+          // since it's transparent default to transparent
+          uicolor = UIColor.clearColor;
+      }
+    } else {
+       uicolor = statusBar.backgroundColor;
     }
     CGFloat red = 0;
     CGFloat green = 0;
@@ -34,9 +42,12 @@
     result(color);
   } else if ([@"setstatusbarcolor" isEqualToString:call.method]) {
     NSNumber *color = call.arguments[@"color"];
+    UIView * statusBar = [self getStatusBarView];
     if (@available(iOS 13, *)) {
+     int colors = [color intValue];
+     statusBar.backgroundColor = ANDROID_COLOR(colors);
+     [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
     } else {
-      UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
       int colors = [color intValue];
       statusBar.backgroundColor = ANDROID_COLOR(colors);
     }
@@ -58,6 +69,24 @@
   } else {
     result(FlutterMethodNotImplemented);
   }
+}
+
+- (UIView*) getStatusBarView {
+   if (@available(iOS 13, *)) {
+       if([UIApplication sharedApplication].keyWindow != nil &&
+           [[UIApplication sharedApplication].keyWindow viewWithTag:statusBarViewTag] != nil) {
+           return [[UIApplication sharedApplication].keyWindow viewWithTag:statusBarViewTag];
+       }
+       else {
+           UIView* statusBar = [[UIView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame];
+           statusBar.tag = statusBarViewTag;
+           return statusBar;
+       }
+   }
+   else {
+       return [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+   }
+    
 }
 
 @end
