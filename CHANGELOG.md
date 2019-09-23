@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.2]
+
+* Fix iOS 13 build error.
+
 ## [0.2.1]
 
 * Null check for android activity.

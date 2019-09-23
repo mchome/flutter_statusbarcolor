@@ -1,27 +1,10 @@
 # flutter_statusbarcolor
 
-[![pub package](https://img.shields.io/pub/v/flutter_statusbarcolor.svg)](https://pub.dartlang.org/packages/flutter_statusbarcolor)
+[![pub package](https://img.shields.io/pub/v/flutter_statusbarcolor.svg)](https://pub.dev/packages/flutter_statusbarcolor)
 
 A package can help you to change your flutter app's statusbar's color or navigationbar's color programmatically.
 
 ## Getting Started
-
-### Installation
-
-Add this to your pubspec.yaml (or create it):
-
-```yaml
-dependencies:
-  flutter_statusbarcolor: any
-```
-
-Then run the flutter tooling:
-
-```bash
-flutter packages get
-```
-
-### Example
 
 ```dart
 // change the status bar color to material color [green-400]
@@ -51,7 +34,7 @@ Details in [example/](https://github.com/mchome/flutter_statusbarcolor/tree/mast
 
 ## Api level minimum requirement
 
-- android
+- Android
   - getStatusBarColor (5.0)
   - setStatusBarColor (5.0)
   - setStatusBarWhiteForeground (6.0)
@@ -59,7 +42,7 @@ Details in [example/](https://github.com/mchome/flutter_statusbarcolor/tree/mast
   - setNavigationBarColor (5.0)
   - setNavigationBarWhiteForeground (8.0)
 
-- ios
+- iOS
   - getStatusBarColor (7+)
   - setStatusBarColor (7+)
   - setStatusBarWhiteForeground (7+)
@@ -68,4 +51,4 @@ Details in [example/](https://github.com/mchome/flutter_statusbarcolor/tree/mast
 
 - If you find the foreground brightness reverted after changing the app lifecycle,
   please use flutter's [WidgetsBindingObserver](https://docs.flutter.io/flutter/widgets/WidgetsBindingObserver-class.html) mixin.
-- If ios build does not work, please send issues or pull requests.
+- If iOS build does not work, please send issues or pull requests.
