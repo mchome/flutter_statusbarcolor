@@ -47,7 +47,11 @@ static NSInteger statusBarViewTag = 38482458385;
     if ([usewhiteforeground boolValue]) {
       [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     } else {
-      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        if (@available(iOS 13, *)) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDarkContent animated:YES];
+        }else{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        }
     }
     result(nil);
   } else if ([@"getnavigationbarcolor" isEqualToString:call.method]) {
