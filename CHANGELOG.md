@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.3]
+
+* Fix iOS 13+ Dark mode.
+
 ## [0.2.2]
 
 * Fix iOS 13 build error.
